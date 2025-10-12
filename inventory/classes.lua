@@ -25,6 +25,7 @@ bridge.inventory.server.createStash = function(identifier, label, slots, weight)
 ---@param src number
 ---@param item string
 ---@param count number
+---@return boolean
 bridge.inventory.server.canCarryItem = function(src, item, count) end
 
 ---@param src number
