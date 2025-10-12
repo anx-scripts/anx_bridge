@@ -3,12 +3,10 @@ local func = {client = {}, server = {}}
 func.client.item = function(name)
     local item = bridge.framework.object.Shared.Items[name]
 
-    bridge.shared.dump(item)
-
     return {
         label = item and item.label or name,
         description = item and item.description or nil,
-        image = item and item.client and item.client.image and 'nui://qb-inventory/html/images/'..item.client.image or nil,
+        image = item and item.image and 'nui://qb-inventory/html/images/'..item.image or nil,
     }
 end
 
