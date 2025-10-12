@@ -6,7 +6,7 @@ func.client.item = function(name)
     return {
         label = item and item.label or name,
         description = item and item.description or nil,
-        image = item and item.client and item.client.image and 'nui://ox_inventory/web/images/'..item.client.image or nil,
+        image = item and item.client and item.client.image or nil,
     }
 end
 
