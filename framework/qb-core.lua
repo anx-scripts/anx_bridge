@@ -1,4 +1,4 @@
-local func = {client = {}, server = {}, object = exports['qb-core']:GetCoreObject()}
+local func = { client = {}, server = {}, object = exports['qb-core']:GetCoreObject() }
 
 func.client.getPlayerData = function()
     local player = func.object.Functions.GetPlayerData()
@@ -64,7 +64,7 @@ end
 
 func.server.getPlayerMoney = function(src, type)
     local player = func.object.Functions.GetPlayer(src)
-    
+
     if not player then return 0 end
 
     return player.Functions.GetMoney(type) or 0

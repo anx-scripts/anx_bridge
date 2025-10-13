@@ -1,4 +1,4 @@
-local func = {client = {}, server = {useableItems = {}}}
+local func = { client = {}, server = { useableItems = {} } }
 
 func.client.item = function(name)
     local item = exports['ox_inventory']:Items(name)
@@ -197,7 +197,7 @@ end
 if isServer then
     AddEventHandler('ox_inventory:usedItem', function(src, itemName, slot, metadata)
         local callback = func.server.useableItems[itemName]
-        
+
         if callback then
             callback(src, slot, metadata)
         end

@@ -1,7 +1,7 @@
-local func = {client = {}}
+local func = { client = {} }
 
 func.client.addGlobalObject = function(options, distance)
-    local newOptions = {distance = distance or 2.0, options = {}}
+    local newOptions = { distance = distance or 2.0, options = {} }
 
     for _, v in ipairs(options) do
         table.insert(newOptions.options, {
@@ -30,7 +30,7 @@ func.client.removeGlobalObject = function(options)
 end
 
 func.client.addGlobalPed = function(options, distance)
-    local newOptions = {distance = distance or 2.0, options = {}}
+    local newOptions = { distance = distance or 2.0, options = {} }
 
     for _, v in ipairs(options) do
         table.insert(newOptions.options, {
@@ -59,7 +59,7 @@ func.client.removeGlobalPed = function(options)
 end
 
 func.client.addGlobalVehicle = function(options, distance)
-    local newOptions = {distance = distance or 2.0, options = {}}
+    local newOptions = { distance = distance or 2.0, options = {} }
 
     for _, v in ipairs(options) do
         table.insert(newOptions.options, {
@@ -88,7 +88,7 @@ func.client.removeGlobalVehicle = function(options)
 end
 
 func.client.addModel = function(models, options, distance)
-    local newOptions = {distance = distance or 2.0, options = {}}
+    local newOptions = { distance = distance or 2.0, options = {} }
 
     for _, v in ipairs(options) do
         table.insert(newOptions.options, {
@@ -117,7 +117,7 @@ func.client.removeModel = function(models, options)
 end
 
 func.client.addLocalEntity = function(entities, options, distance)
-    local newOptions = {distance = distance or 2.0, options = {}}
+    local newOptions = { distance = distance or 2.0, options = {} }
 
     for _, v in ipairs(options) do
         table.insert(newOptions.options, {

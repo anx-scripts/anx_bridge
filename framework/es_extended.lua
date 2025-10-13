@@ -1,8 +1,8 @@
-local func = {client = {}, server = {}, object = exports['es_extended']:getSharedObject()}
+local func = { client = {}, server = {}, object = exports['es_extended']:getSharedObject() }
 
 func.client.getPlayerData = function()
     local player = func.object.GetPlayerData()
-    
+
     return {
         identifier = player.identifier or '',
         name = ('%s %s'):format(player.firstName, player.lastName) or '',
@@ -65,7 +65,7 @@ end
 func.server.getPlayerMoney = function(src, type)
     local type = type == 'cash' and 'money' or type
     local player = func.object.GetPlayerFromId(src)
-    
+
     if not player then return 0 end
 
     local accounts = player.getAccounts(true)

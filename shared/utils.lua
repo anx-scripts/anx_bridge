@@ -77,13 +77,14 @@ func.dump = function(...)
         if isTableEmpty(t) then
             return pad .. '^6{^0\n' .. pad .. '^6}^0'
         end
-        local lines = {pad .. '^6{^0'}
+        local lines = { pad .. '^6{^0' }
         for k, v in pairs(t) do
             table.insert(lines, string.format('%s%s = %s,', padInner, formatKey(k), formatValue(v, indent)))
         end
         table.insert(lines, pad .. '^6}^0')
         return table.concat(lines, '\n')
     end
+
     for i = 1, select('#', ...) do
         local arg = select(i, ...)
         if type(arg) == 'table' then

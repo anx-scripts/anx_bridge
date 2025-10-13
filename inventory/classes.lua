@@ -1,4 +1,4 @@
-bridge.inventory = {client = {}, server = {}}
+bridge.inventory = { client = {}, server = {} }
 
 ---@param name string
 ---@return { label: string, description?: string, image?: string }

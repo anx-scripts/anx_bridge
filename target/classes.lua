@@ -1,4 +1,4 @@
-bridge.target = {client = {}}
+bridge.target = { client = {} }
 
 ---@class TargetAddOptions
 ---@field label string

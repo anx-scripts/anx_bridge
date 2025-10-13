@@ -1,4 +1,4 @@
-local func = {client = {}, server = {}}
+local func = { client = {}, server = {} }
 
 func.client.item = function(name)
     local item = bridge.framework.object.Shared.Items[name]
@@ -6,7 +6,7 @@ func.client.item = function(name)
     return {
         label = item and item.label or name,
         description = item and item.description or nil,
-        image = item and item.image and 'nui://qb-inventory/html/images/'..item.image or nil,
+        image = item and item.image and 'nui://qb-inventory/html/images/' .. item.image or nil,
     }
 end
 
@@ -36,7 +36,7 @@ func.server.item = function(name)
 end
 
 func.server.createStash = function(identifier, label, slots, weight)
-    exports['qb-inventory']:CreateInventory(identifier, { label = label, slots = slots, maxweight = weight})
+    exports['qb-inventory']:CreateInventory(identifier, { label = label, slots = slots, maxweight = weight })
 end
 
 func.server.canCarryItem = function(src, name, count)

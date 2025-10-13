@@ -1,4 +1,4 @@
-bridge.framework = {client = {}, server = {}}
+bridge.framework = { client = {}, server = {} }
 
 ---@class PlayerData
 ---@field identifier string

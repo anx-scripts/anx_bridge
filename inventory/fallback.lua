@@ -1,4 +1,4 @@
-local func = {client = {}, server = {useableItems = {}}}
+local func = { client = {}, server = { useableItems = {} } }
 
 func.client.item = function(name)
     print('^1[FALLBACK] ^7Using fallback for ^1item^7.')

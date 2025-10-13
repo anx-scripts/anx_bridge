@@ -8,8 +8,8 @@ local modules = {
     {
         name = 'framework',
         path = {
-            { name = 'qb-core', file = 'qb-core.lua', compat = 'good' },
-            { name = 'qbx_core', file = 'qb-core.lua', compat = 'good' },
+            { name = 'qb-core',     file = 'qb-core.lua',     compat = 'good' },
+            { name = 'qbx_core',    file = 'qb-core.lua',     compat = 'good' },
             { name = 'es_extended', file = 'es_extended.lua', compat = 'good' },
         },
     },
@@ -30,10 +30,10 @@ local modules = {
 }
 
 for _, module in ipairs(modules) do
-    local convar = GetConvar('anx_bridge:'..module.name, 'auto')
+    local convar = GetConvar('anx_bridge:' .. module.name, 'auto')
     local file, res, compat
 
-    if convar ~= 'auto' and not bridge.shared.isResourceStarted(convar) then 
+    if convar ~= 'auto' and not bridge.shared.isResourceStarted(convar) then
         convar = 'auto'
     end
 
@@ -72,9 +72,11 @@ for _, module in ipairs(modules) do
     local resName = bridge[moduleName].name
     local compat = bridge[moduleName].compat
 
-    if compat == 'good' then compat = '^2good^7' elseif compat == 'average' then compat = '^3average^7' elseif compat == 'poor' then compat = '^1poor^7' end
+    if compat == 'good' then compat = '^2good^7' elseif compat == 'average' then compat = '^3average^7' elseif compat == 'poor' then compat =
+        '^1poor^7' end
 
     if bridge[moduleName].client and not isServer or bridge[moduleName].server and isServer then
-        print(('^2[anx_bridge] ^7%s: %s ^7(Compatibility: %s)'):format(moduleName, resName ~= 'fallback' and '^2'..resName or '^1fallback^7', compat))
+        print(('^2[anx_bridge] ^7%s: %s ^7(Compatibility: %s)'):format(moduleName,
+            resName ~= 'fallback' and '^2' .. resName or '^1fallback^7', compat))
     end
 end

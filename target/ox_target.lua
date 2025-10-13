@@ -1,4 +1,4 @@
-local func = {client = {}}
+local func = { client = {} }
 
 func.client.addGlobalObject = function(options, distance)
     local newOptions = {}

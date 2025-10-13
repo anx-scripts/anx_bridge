@@ -1,4 +1,4 @@
-local func = {client = {}}
+local func = { client = {} }
 
 func.client.addGlobalObject = function(options, distance)
     print('^1[FALLBACK] ^7Using fallback for ^1addGlobalObject^7.')
