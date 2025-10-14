@@ -42,7 +42,7 @@ bridge.inventory.server.getItemCount = function(src, item, metadata, shouldMatch
 
 ---@param src number
 ---@param slot number
----@return { name: string, count: number, metadata: table<string, any> }
+---@return { name: string, count: number, metadata: table<string, any> }|nil
 bridge.inventory.server.getItemBySlot = function(src, slot) end
 
 ---@param src number
