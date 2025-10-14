@@ -9,16 +9,16 @@ version '1.0.0'
 description 'A bridge designed to simplify the creation, configuration, and installation of the script.'
 
 files {
-    '**.lua',
-    '**.json',
+	'**.lua',
+	'**.json',
 }
 
 shared_scripts {
-    '@ox_lib/init.lua',
-    'init.lua',
+	'@ox_lib/init.lua',
+	'init.lua',
 }
 
 ox_libs {
-    'table',
-    'callback',
+	'table',
+	'callback',
 }

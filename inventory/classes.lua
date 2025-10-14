@@ -30,7 +30,7 @@ bridge.inventory.server.canCarryItem = function(src, item, count) end
 
 ---@param src number
 ---@param name string
----@return { slot: number, count: number, metadata: table<string, any> }
+---@return { slot: number, count: number, metadata: table<string, any> }[]
 bridge.inventory.server.getItems = function(src, name) end
 
 ---@param src number
