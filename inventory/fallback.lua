@@ -14,6 +14,10 @@ func.client.hasItem = function(name, count)
 	return false
 end
 
+func.client.setBusy = function(state)
+	print('^1[FALLBACK] ^7Using fallback for ^1setBusy^7.')
+end
+
 func.server.item = function(name)
 	print('^1[FALLBACK] ^7Using fallback for ^1item^7.')
 	return { label = name }

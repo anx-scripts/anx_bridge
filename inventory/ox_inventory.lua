@@ -18,6 +18,10 @@ func.client.hasItem = function(name, count)
 	return (exports['ox_inventory']:Search('count', name) or 0) >= count
 end
 
+func.client.setBusy = function(state)
+	LocalPlayer.state:set("invBusy", state, true)
+end
+
 func.server.item = function(name)
 	local item = exports['ox_inventory']:Items(name)
 

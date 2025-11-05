@@ -12,6 +12,9 @@ bridge.inventory.client.openStash = function(identifier) end
 ---@return boolean
 bridge.inventory.client.hasItem = function(name, count) end
 
+---@param state boolean
+bridge.inventory.client.setBusy = function(state) end
+
 ---@param name string
 ---@return { label: string, description?: string }
 bridge.inventory.server.item = function(name) end

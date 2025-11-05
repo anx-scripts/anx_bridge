@@ -26,6 +26,10 @@ func.client.hasItem = function(name, count)
 	return exports['qb-inventory']:HasItem(name, count) or false
 end
 
+func.client.setBusy = function(state)
+	LocalPlayer.state:set("inv_busy", state, true)
+end
+
 func.server.item = function(name)
 	local item = bridge.framework.object.Shared.Items[name]
 
