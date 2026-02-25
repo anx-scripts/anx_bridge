@@ -1,66 +1,71 @@
-local func = { client = {}, server = { useableItems = {} } }
+local inventory = { client = {}, server = {} }
 
-func.client.item = function(name)
-	print('^1[FALLBACK] ^7Using fallback for ^1item^7.')
-	return { label = name }
+inventory.client.item = function(name)
+  print("^1[FALLBACK] ^7Using fallback for ^1item^7.")
+  return { label = name }
 end
 
-func.client.openStash = function(identifier)
-	print('^1[FALLBACK] ^7Using fallback for ^1openStash^7.')
+inventory.client.items = function()
+  print("^1[FALLBACK] ^7Using fallback for ^1items^7.")
+  return {}
 end
 
-func.client.hasItem = function(name, count)
-	print('^1[FALLBACK] ^7Using fallback for ^1hasItem^7.')
-	return false
+inventory.client.openStash = function()
+  print("^1[FALLBACK] ^7Using fallback for ^1openStash^7.")
 end
 
-func.client.setBusy = function(state)
-	print('^1[FALLBACK] ^7Using fallback for ^1setBusy^7.')
+inventory.client.hasItem = function()
+  print("^1[FALLBACK] ^7Using fallback for ^1hasItem^7.")
+  return false
 end
 
-func.server.item = function(name)
-	print('^1[FALLBACK] ^7Using fallback for ^1item^7.')
-	return { label = name }
+inventory.client.setBusy = function()
+  print("^1[FALLBACK] ^7Using fallback for ^1setBusy^7.")
 end
 
-func.server.createStash = function(identifier, label, slots, weight)
-	print('^1[FALLBACK] ^7Using fallback for ^1createStash^7.')
+inventory.server.item = function(name)
+  print("^1[FALLBACK] ^7Using fallback for ^1item^7.")
+  return { label = name }
 end
 
-func.server.canCarryItem = function(src, name, count)
-	print('^1[FALLBACK] ^7Using fallback for ^1canCarryItem^7.')
-	return false
+inventory.server.createStash = function()
+  print("^1[FALLBACK] ^7Using fallback for ^1createStash^7.")
 end
 
-func.server.getItems = function(src, name)
-	print('^1[FALLBACK] ^7Using fallback for ^1getItems^7.')
-	return {}
+inventory.server.canCarryItem = function()
+  print("^1[FALLBACK] ^7Using fallback for ^1canCarryItem^7.")
+  return false
 end
 
-func.server.getItemCount = function(src, name, metadata, shouldMatch)
-	print('^1[FALLBACK] ^7Using fallback for ^1getItemCount^7.')
-	return 0
+inventory.server.getItems = function()
+  print("^1[FALLBACK] ^7Using fallback for ^1getItems^7.")
+  return {}
 end
 
-func.server.getItemBySlot = function(src, slot)
-	print('^1[FALLBACK] ^7Using fallback for ^1getItemBySlot^7.')
-	return nil
+inventory.server.getItemCount = function()
+  print("^1[FALLBACK] ^7Using fallback for ^1getItemCount^7.")
+  return 0
 end
 
-func.server.addItem = function(src, item, count, metadata)
-	print('^1[FALLBACK] ^7Using fallback for ^1addItem^7.')
+inventory.server.getItemBySlot = function()
+  print("^1[FALLBACK] ^7Using fallback for ^1getItemBySlot^7.")
+  return nil
 end
 
-func.server.removeItem = function(src, item, count, slot, metadata, shouldMatch)
-	print('^1[FALLBACK] ^7Using fallback for ^1removeItem^7.')
+inventory.server.addItem = function()
+  print("^1[FALLBACK] ^7Using fallback for ^1addItem^7.")
 end
 
-func.server.setMetadata = function(src, slot, metadata)
-	print('^1[FALLBACK] ^7Using fallback for ^1setMetadata^7.')
+inventory.server.removeItem = function()
+  print("^1[FALLBACK] ^7Using fallback for ^1removeItem^7.")
 end
 
-func.server.createUseableItem = function(name, cb)
-	print('^1[FALLBACK] ^7Using fallback for ^1createUseableItem^7.')
+inventory.server.setMetadata = function()
+  print("^1[FALLBACK] ^7Using fallback for ^1setMetadata^7.")
 end
 
-return func
+inventory.server.createUseableItem = function()
+  print("^1[FALLBACK] ^7Using fallback for ^1createUseableItem^7.")
+end
+
+return inventory

@@ -1,6 +1,8 @@
-local func = { client = {} }
+local target = { client = {} }
 
-func.client.addGlobalObject = function(options, distance)
+local qb_target = exports["qb-target"]
+
+target.client.addGlobalObject = function(options, distance)
 	local newOptions = { distance = distance or 2.0, options = {} }
 
 	for _, v in ipairs(options) do
@@ -16,20 +18,20 @@ func.client.addGlobalObject = function(options, distance)
 		})
 	end
 
-	exports['qb-target']:AddGlobalObject(newOptions)
+	qb_target:AddGlobalObject(newOptions)
 end
 
-func.client.removeGlobalObject = function(options)
+target.client.removeGlobalObject = function(options)
 	local newOptions = {}
 
 	for _, v in ipairs(options) do
 		table.insert(newOptions, v.label)
 	end
 
-	exports['qb-target']:RemoveGlobalObject(newOptions)
+	qb_target:RemoveGlobalObject(newOptions)
 end
 
-func.client.addGlobalPed = function(options, distance)
+target.client.addGlobalPed = function(options, distance)
 	local newOptions = { distance = distance or 2.0, options = {} }
 
 	for _, v in ipairs(options) do
@@ -45,20 +47,20 @@ func.client.addGlobalPed = function(options, distance)
 		})
 	end
 
-	exports['qb-target']:AddGlobalPed(newOptions)
+	qb_target:AddGlobalPed(newOptions)
 end
 
-func.client.removeGlobalPed = function(options)
+target.client.removeGlobalPed = function(options)
 	local newOptions = {}
 
 	for _, v in ipairs(options) do
 		table.insert(newOptions, v.label)
 	end
 
-	exports['qb-target']:RemoveGlobalPed(newOptions)
+	qb_target:RemoveGlobalPed(newOptions)
 end
 
-func.client.addGlobalVehicle = function(options, distance)
+target.client.addGlobalVehicle = function(options, distance)
 	local newOptions = { distance = distance or 2.0, options = {} }
 
 	for _, v in ipairs(options) do
@@ -74,20 +76,20 @@ func.client.addGlobalVehicle = function(options, distance)
 		})
 	end
 
-	exports['qb-target']:AddGlobalVehicle(newOptions)
+	qb_target:AddGlobalVehicle(newOptions)
 end
 
-func.client.removeGlobalVehicle = function(options)
+target.client.removeGlobalVehicle = function(options)
 	local newOptions = {}
 
 	for _, v in ipairs(options) do
 		table.insert(newOptions, v.label)
 	end
 
-	exports['qb-target']:RemoveGlobalVehicle(newOptions)
+	qb_target:RemoveGlobalVehicle(newOptions)
 end
 
-func.client.addModel = function(models, options, distance)
+target.client.addModel = function(models, options, distance)
 	local newOptions = { distance = distance or 2.0, options = {} }
 
 	for _, v in ipairs(options) do
@@ -103,20 +105,20 @@ func.client.addModel = function(models, options, distance)
 		})
 	end
 
-	exports['qb-target']:AddTargetModel(models, newOptions)
+	qb_target:AddTargetModel(models, newOptions)
 end
 
-func.client.removeModel = function(models, options)
+target.client.removeModel = function(models, options)
 	local newOptions = {}
 
 	for _, v in ipairs(options) do
 		table.insert(newOptions, v.label)
 	end
 
-	exports['qb-target']:RemoveTargetModel(models, newOptions)
+	qb_target:RemoveTargetModel(models, newOptions)
 end
 
-func.client.addLocalEntity = function(entities, options, distance)
+target.client.addLocalEntity = function(entities, options, distance)
 	local newOptions = { distance = distance or 2.0, options = {} }
 
 	for _, v in ipairs(options) do
@@ -132,17 +134,17 @@ func.client.addLocalEntity = function(entities, options, distance)
 		})
 	end
 
-	exports['qb-target']:AddTargetEntity(entities, newOptions)
+	qb_target:AddTargetEntity(entities, newOptions)
 end
 
-func.client.removeLocalEntity = function(entities, options)
+target.client.removeLocalEntity = function(entities, options)
 	local newOptions = {}
 
 	for _, v in ipairs(options) do
 		table.insert(newOptions, v.label)
 	end
 
-	exports['qb-target']:RemoveTargetEntity(entities, newOptions)
+	qb_target:RemoveTargetEntity(entities, newOptions)
 end
 
-return func
+return target

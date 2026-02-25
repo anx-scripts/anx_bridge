@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 use_experimental_fxv2_oal 'yes'
 lua54 'yes'
-games { 'gta5' }
+game 'gta5'
 
 name 'anx_bridge'
 author 'anx-scripts'
@@ -20,5 +20,4 @@ shared_scripts {
 
 ox_libs {
 	'table',
-	'callback',
 }

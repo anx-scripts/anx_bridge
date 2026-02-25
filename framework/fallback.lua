@@ -1,63 +1,47 @@
-local func = { client = {}, server = {}, object = {} }
+local framework = { client = {}, server = {} }
 
-func.client.getPlayerData = function()
-	print('^1[FALLBACK] ^7Using fallback for ^1getPlayerData^7.')
+---------- CLIENT ----------
 
-	return {
-		identifier = '',
-		name = '',
-		job = {
-			name = '',
-			label = '',
-			grade = 0,
-			gradeName = '',
-			onDuty = false,
-		}
-	}
+framework.client.getPlayerData = function()
+  print("^1[FALLBACK] ^7Using fallback for ^1getPlayerData^7.")
+
+  return nil
 end
 
-func.server.getPlayerData = function(src)
-	print('^1[FALLBACK] ^7Using fallback for ^1getPlayerData^7.')
+---------- SERVER ----------
 
-	return {
-		identifier = '',
-		name = '',
-		job = {
-			name = '',
-			label = '',
-			grade = 0,
-			gradeName = '',
-			onDuty = false,
-		}
-	}
+framework.server.getPlayerData = function()
+  print("^1[FALLBACK] ^7Using fallback for ^1getPlayerData^7.")
+
+  return nil
 end
 
-func.server.getSourceByIdentifier = function(identifier)
-	print('^1[FALLBACK] ^7Using fallback for ^1getSourceByIdentifier^7.')
+framework.server.getSourceByIdentifier = function()
+  print("^1[FALLBACK] ^7Using fallback for ^1getSourceByIdentifier^7.")
 
-	return nil
+  return nil
 end
 
-func.server.getPlayerMoney = function(src, type)
-	print('^1[FALLBACK] ^7Using fallback for ^1getPlayerMoney^7.')
+framework.server.getPlayerMoney = function()
+  print("^1[FALLBACK] ^7Using fallback for ^1getPlayerMoney^7.")
 
-	return 0
+  return 0
 end
 
-func.server.addPlayerMoney = function(src, type, amount)
-	print('^1[FALLBACK] ^7Using fallback for ^1addPlayerMoney^7.')
+framework.server.addPlayerMoney = function()
+  print("^1[FALLBACK] ^7Using fallback for ^1addPlayerMoney^7.")
 
-	return false
+  return false
 end
 
-func.server.removePlayerMoney = function(src, type, amount)
-	print('^1[FALLBACK] ^7Using fallback for ^1removePlayerMoney^7.')
+framework.server.removePlayerMoney = function()
+  print("^1[FALLBACK] ^7Using fallback for ^1removePlayerMoney^7.")
 
-	return false
+  return false
 end
 
-func.server.createUseableItem = function(name, cb)
-	print('^1[FALLBACK] ^7Using fallback for ^1createUseableItem^7.')
+framework.server.createUseableItem = function()
+  print("^1[FALLBACK] ^7Using fallback for ^1createUseableItem^7.")
 end
 
-return func
+return framework

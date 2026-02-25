@@ -1,36 +1,57 @@
-local func = { client = {}, server = {} }
+local inventory = { client = {}, server = {} }
 
-func.client.item = function(name)
+local qb_inventory = exports["qb-inventory"]
+
+inventory.client.item = function(name)
 	local item = bridge.framework.object.Shared.Items[name]
 
 	return {
 		label = item and item.label or name,
 		description = item and item.description or nil,
-		image = item and item.image and 'nui://qb-inventory/html/images/' .. item.image or nil,
+		image = item and item.image and "nui://qb-inventory/html/images/" .. item.image or nil,
 	}
 end
 
-func.client.openStash = function(identifier)
-	TriggerServerEvent('anx_bridge:qb-inventory:openStash', identifier)
+inventory.client.items = function()
+	local newItems = {}
+	local items = bridge.framework.object.Shared.Items
+
+	for item, v in pairs(items) do
+		newItems[item] = {
+			label = v.label or item,
+			description = v.description or nil,
+			image = v.image and "nui://qb-inventory/html/images/" .. v.image or nil,
+		}
+	end
+
+	table.sort(newItems, function(a, b)
+		return a.label < b.label
+	end)
+
+	return newItems
+end
+
+inventory.client.openStash = function(identifier)
+	TriggerServerEvent("anx_bridge:qb-inventory:openStash", identifier)
 end
 
 if isServer then
-	RegisterNetEvent('anx_bridge:qb-inventory:openStash', function(identifier)
+	RegisterNetEvent("anx_bridge:qb-inventory:openStash", function(identifier)
 		local src = source
 
-		exports['qb-inventory']:OpenInventory(src, identifier)
+		qb_inventory:OpenInventory(src, identifier)
 	end)
 end
 
-func.client.hasItem = function(name, count)
-	return exports['qb-inventory']:HasItem(name, count) or false
+inventory.client.hasItem = function(name, count)
+	return qb_inventory:HasItem(name, count) or false
 end
 
-func.client.setBusy = function(state)
+inventory.client.setBusy = function(state)
 	LocalPlayer.state:set("inv_busy", state, true)
 end
 
-func.server.item = function(name)
+inventory.server.item = function(name)
 	local item = bridge.framework.object.Shared.Items[name]
 
 	return {
@@ -39,17 +60,17 @@ func.server.item = function(name)
 	}
 end
 
-func.server.createStash = function(identifier, label, slots, weight)
-	exports['qb-inventory']:CreateInventory(identifier, { label = label, slots = slots, maxweight = weight })
+inventory.server.createStash = function(identifier, label, slots, weight)
+	qb_inventory:CreateInventory(identifier, { label = label, slots = slots, maxweight = weight })
 end
 
-func.server.canCarryItem = function(src, name, count)
-	return exports['qb-inventory']:CanAddItem(src, name, count) or false
+inventory.server.canCarryItem = function(src, name, count)
+	return qb_inventory:CanAddItem(src, name, count) or false
 end
 
-func.server.getItems = function(src, name)
+inventory.server.getItems = function(src, name)
 	local newItems = {}
-	local items = exports['qb-inventory']:GetItemsByName(src, name) or {}
+	local items = qb_inventory:GetItemsByName(src, name) or {}
 
 	for _, v in ipairs(items) do
 		table.insert(newItems, {
@@ -62,9 +83,9 @@ func.server.getItems = function(src, name)
 	return newItems
 end
 
-func.server.getItemCount = function(src, name, metadata, shouldMatch)
+inventory.server.getItemCount = function(src, name, metadata, shouldMatch)
 	if not metadata then
-		return exports['qb-inventory']:GetItemCount(src, name) or 0
+		return qb_inventory:GetItemCount(src, name) or 0
 	else
 		local shouldMatch = shouldMatch == nil and true or shouldMatch
 		local items = bridge.inventory.server.getItems(src, name)
@@ -89,8 +110,8 @@ func.server.getItemCount = function(src, name, metadata, shouldMatch)
 	end
 end
 
-func.server.getItemBySlot = function(src, slot)
-	local item = exports['qb-inventory']:GetItemBySlot(src, slot)
+inventory.server.getItemBySlot = function(src, slot)
+	local item = qb_inventory:GetItemBySlot(src, slot)
 
 	return item and {
 		name = item.name,
@@ -99,15 +120,15 @@ func.server.getItemBySlot = function(src, slot)
 	} or nil
 end
 
-func.server.addItem = function(src, item, count, metadata)
-	exports['qb-inventory']:AddItem(src, item, count, false, metadata)
+inventory.server.addItem = function(src, item, count, metadata)
+	qb_inventory:AddItem(src, item, count, false, metadata)
 end
 
-func.server.removeItem = function(src, item, count, slot, metadata, shouldMatch)
+inventory.server.removeItem = function(src, item, count, slot, metadata, shouldMatch)
 	if not slot and not metadata then
-		exports['qb-inventory']:RemoveItem(src, item, count)
+		qb_inventory:RemoveItem(src, item, count)
 	elseif slot and not metadata then
-		exports['qb-inventory']:RemoveItem(src, item, count, slot)
+		qb_inventory:RemoveItem(src, item, count, slot)
 	elseif not slot and metadata then
 		local shouldMatch = shouldMatch == nil and true or shouldMatch
 		local items = bridge.inventory.server.getItems(src, item)
@@ -115,12 +136,12 @@ func.server.removeItem = function(src, item, count, slot, metadata, shouldMatch)
 		for _, v in ipairs(items) do
 			if v.metadata and next(v.metadata) then
 				if shouldMatch and lib.table.matches(v.metadata, metadata) then
-					exports['qb-inventory']:RemoveItem(src, item, count, v.slot)
+					qb_inventory:RemoveItem(src, item, count, v.slot)
 					return
 				elseif not shouldMatch then
 					for key, value in pairs(metadata) do
 						if v.metadata[key] and v.metadata[key] == value then
-							exports['qb-inventory']:RemoveItem(src, item, count, v.slot)
+							qb_inventory:RemoveItem(src, item, count, v.slot)
 							return
 						end
 					end
@@ -130,14 +151,14 @@ func.server.removeItem = function(src, item, count, slot, metadata, shouldMatch)
 	end
 end
 
-func.server.setMetadata = function(src, slot, metadata)
+inventory.server.setMetadata = function(src, slot, metadata)
 	local exist = bridge.inventory.server.getItemBySlot(src, slot)
 
 	if not exist then return end
 
 	for k, v in pairs(metadata) do
-		exports['qb-inventory']:SetItemData(src, exist.name, k, v, slot)
+		qb_inventory:SetItemData(src, exist.name, k, v, slot)
 	end
 end
 
-return func
+return inventory
