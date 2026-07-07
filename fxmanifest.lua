@@ -6,7 +6,7 @@ game 'gta5'
 name 'anx_bridge'
 author 'anx-scripts'
 version '1.0.0'
-description 'A bridge designed to simplify the creation, configuration, and installation of the script.'
+description 'todo'
 
 files {
 	'**.lua',
