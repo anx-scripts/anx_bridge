@@ -1,5 +1,3 @@
----@alias Compatibility "good"|"average"|"poor"
-
 ---@class FrameworkJob
 ---@field name string
 ---@field label string
@@ -16,7 +14,7 @@
 ---@alias FrameworkMoneyTypes "cash"|"bank"
 
 ---@class FrameworkClient
----@field getPlayerData fun(): FrameworkPlayerData
+---@field getPlayerData fun(): FrameworkPlayerData|nil
 
 ---@class FrameworkServer
 ---@field getPlayerData fun(src: number): FrameworkPlayerData|nil
@@ -30,7 +28,7 @@
 ---@field client FrameworkClient
 ---@field server FrameworkServer
 ---@field name string
----@field compatibility Compatibility
+---@field object? table Underlying framework core object (QBCore/ESX shared object).
 
 ---@class InventoryItemBase
 ---@field name string
@@ -54,29 +52,27 @@
 
 ---@class InventoryClient
 ---@field item fun(name: string): InventoryClientItem
----@field items fun(): InventoryClientItem[]
----@field openStash fun(identifier: string)
+---@field items fun(): table<string, InventoryClientItem>
 ---@field hasItem fun(name: string, count: number): boolean
 ---@field setBusy fun(state: boolean)
+---@field isBusy fun(): boolean
 
 ---@class InventoryServer
 ---@field item fun(name: string): InventoryServerItem
----@field items fun(): InventoryServerItem[]
 ---@field createStash fun(identifier: string, label: string, slots: number, weight: number)
----@field canCarryItem fun(src: number, item: string, count: number): boolean
+---@field canCarryItem fun(src: number, name: string, count: number): boolean
 ---@field getItems fun(src: number, name: string): InventoryInstanceItem[]
----@field getItemCount fun(src: number, item: string, metadata?: table<string, any>, shouldMetadataMatch?: boolean): number
+---@field getItemCount fun(src: number, name: string, metadata?: table<string, any>, shouldMatch?: boolean): number
 ---@field getItemBySlot fun(src: number, slot: number): InventoryNamedItem|nil
----@field addItem fun(src: number, item: string, count: number, metadata?: table<string, any>): boolean
----@field removeItem fun(src: number, item: string, count: number, slot?: number, metadata?: table<string, any>, shouldMetadataMatch?: boolean): boolean
----@field setMetadata fun(src: number, slot: number, metadata: table<string, any>|nil): boolean
+---@field addItem fun(src: number, name: string, count: number, metadata?: table<string, any>): boolean
+---@field removeItem fun(src: number, name: string, count: number, slot?: number, metadata?: table<string, any>, shouldMatch?: boolean): boolean
+---@field setMetadata fun(src: number, slot: number, metadata: table<string, any>|nil)
 ---@field createUseableItem fun(name: string, cb: fun(src: number, slot: number, metadata?: table<string, any>))
 
 ---@class InventoryModule
 ---@field client InventoryClient
 ---@field server InventoryServer
 ---@field name string
----@field compatibility Compatibility
 
 ---@class TargetBaseOptions
 ---@field label string
@@ -85,7 +81,7 @@
 ---@class TargetAddOptions: TargetBaseOptions
 ---@field icon? string
 ---@field onSelect fun(entity: number)
----@field canInteract? fun(entity: number)
+---@field canInteract? fun(entity: number): boolean?
 
 ---@class TargetRemoveOptions: TargetBaseOptions
 
@@ -96,21 +92,24 @@
 ---@field removeGlobalPed fun(options: TargetRemoveOptions[])
 ---@field addGlobalVehicle fun(options: TargetAddOptions[], distance?: number)
 ---@field removeGlobalVehicle fun(options: TargetRemoveOptions[])
----@field addModels fun(models: string[], options: TargetAddOptions[], distance?: number)
----@field removeModels fun(models: TargetRemoveOptions[])
----@field addLocalEntities fun(entities: number[], options: TargetAddOptions[], distance?: number)
----@field removeLocalEntities fun(entities: TargetRemoveOptions[])
+---@field addModel fun(models: string[], options: TargetAddOptions[], distance?: number)
+---@field removeModel fun(models: string[], options: TargetRemoveOptions[])
+---@field addLocalEntity fun(entities: number[], options: TargetAddOptions[], distance?: number)
+---@field removeLocalEntity fun(entities: number[], options: TargetRemoveOptions[])
 
 ---@class TargetModule
 ---@field client TargetClient
 ---@field name string
----@field compatibility Compatibility
 
 ---@class SharedModule
 ---@field dump fun(...)
----@field log fun(message: string, type: "error"|"success"|"warn"|"info")
+---@field log fun(message: string, level?: "error"|"success"|"warn"|"info")
 
 ---@class BridgeRoot
+---@field resource string
+---@field version string
+---@field isServer boolean
+---@field isBridge boolean
 ---@field framework FrameworkModule
 ---@field inventory InventoryModule
 ---@field target TargetModule

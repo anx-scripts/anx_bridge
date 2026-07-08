@@ -1,14 +1,12 @@
+---@type FrameworkModule
+---@diagnostic disable-next-line: missing-fields
 local framework = { client = {}, server = {} }
-
----------- CLIENT ----------
 
 framework.client.getPlayerData = function()
   print("^1[FALLBACK] ^7Using fallback for ^1getPlayerData^7.")
 
   return nil
 end
-
----------- SERVER ----------
 
 framework.server.getPlayerData = function()
   print("^1[FALLBACK] ^7Using fallback for ^1getPlayerData^7.")

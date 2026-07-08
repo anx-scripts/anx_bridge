@@ -1,3 +1,5 @@
+---@type InventoryModule
+---@diagnostic disable-next-line: missing-fields
 local inventory = { client = {}, server = {} }
 
 inventory.client.item = function(name)
@@ -10,10 +12,6 @@ inventory.client.items = function()
   return {}
 end
 
-inventory.client.openStash = function()
-  print("^1[FALLBACK] ^7Using fallback for ^1openStash^7.")
-end
-
 inventory.client.hasItem = function()
   print("^1[FALLBACK] ^7Using fallback for ^1hasItem^7.")
   return false
@@ -21,6 +19,11 @@ end
 
 inventory.client.setBusy = function()
   print("^1[FALLBACK] ^7Using fallback for ^1setBusy^7.")
+end
+
+inventory.client.isBusy = function()
+  print("^1[FALLBACK] ^7Using fallback for ^1isBusy^7.")
+  return false
 end
 
 inventory.server.item = function(name)
@@ -54,10 +57,12 @@ end
 
 inventory.server.addItem = function()
   print("^1[FALLBACK] ^7Using fallback for ^1addItem^7.")
+  return false
 end
 
 inventory.server.removeItem = function()
   print("^1[FALLBACK] ^7Using fallback for ^1removeItem^7.")
+  return false
 end
 
 inventory.server.setMetadata = function()

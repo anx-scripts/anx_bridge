@@ -1,11 +1,13 @@
+---@type FrameworkModule
+---@diagnostic disable-next-line: missing-fields
 local framework = { client = {}, server = {}, object = exports["es_extended"]:getSharedObject() }
-
----------- CLIENT ----------
 
 framework.client.getPlayerData = function()
   local player = framework.object.GetPlayerData()
 
-  if not LocalPlayer.state["anx_bridge:isLoggedIn"] then return nil end
+  if not LocalPlayer.state["anx_bridge:isLoggedIn"] then
+    return nil
+  end
 
   return {
     identifier = player.identifier,
@@ -21,7 +23,7 @@ framework.client.getPlayerData = function()
   }
 end
 
-if not isServer and isBridge then
+if not Bridge.isServer and Bridge.isBridge then
   RegisterNetEvent("esx:playerLoaded", function()
     LocalPlayer.state:set("anx_bridge:isLoggedIn", true, true)
     TriggerEvent("anx_bridge:onPlayerLoad")
@@ -43,12 +45,12 @@ if not isServer and isBridge then
   end)
 end
 
----------- SERVER ----------
-
 framework.server.getPlayerData = function(src)
   local player = framework.object.GetPlayerFromId(src)
 
-  if not player or not Player(src).state["anx_bridge:isLoggedIn"] then return nil end
+  if not player or not Player(src).state["anx_bridge:isLoggedIn"] then
+    return nil
+  end
 
   return {
     identifier = player.identifier,
@@ -71,38 +73,44 @@ framework.server.getSourceByIdentifier = function(identifier)
 end
 
 framework.server.getPlayerMoney = function(src, type)
-  local type = type == "cash" and "money" or type
+  local account = type == "cash" and "money" or type
   local player = framework.object.GetPlayerFromId(src)
 
-  if not player then return 0 end
+  if not player then
+    return 0
+  end
 
   local accounts = player.getAccounts(true)
 
-  return accounts[type] or 0
+  return accounts[account] or 0
 end
 
 framework.server.addPlayerMoney = function(src, type, amount)
-  local type = type == "cash" and "money" or type
+  local account = type == "cash" and "money" or type
   local player = framework.object.GetPlayerFromId(src)
 
-  if not player then return false end
+  if not player then
+    return false
+  end
 
-  player.addAccountMoney(type, amount)
+  player.addAccountMoney(account, amount)
 
   return true
 end
 
 framework.server.removePlayerMoney = function(src, type, amount)
-  local type = type == "cash" and "money" or type
+  local account = type == "cash" and "money" or type
   local player = framework.object.GetPlayerFromId(src)
 
-  if not player then return false end
+  if not player then
+    return false
+  end
 
   if framework.server.getPlayerMoney(src, type) < amount then
     return false
   end
 
-  player.removeAccountMoney(type, amount)
+  player.removeAccountMoney(account, amount)
 
   return true
 end

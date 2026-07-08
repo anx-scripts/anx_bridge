@@ -1,9 +1,13 @@
+---@type FrameworkModule
+---@diagnostic disable-next-line: missing-fields
 local framework = { client = {}, server = {}, object = exports["qb-core"]:GetCoreObject() }
 
 framework.client.getPlayerData = function()
   local player = framework.object.Functions.GetPlayerData()
 
-  if not LocalPlayer.state["anx_bridge:isLoggedIn"] then return nil end
+  if not LocalPlayer.state["anx_bridge:isLoggedIn"] then
+    return nil
+  end
 
   return {
     identifier = player.citizenid,
@@ -19,7 +23,7 @@ framework.client.getPlayerData = function()
   }
 end
 
-if not isServer and isBridge then
+if not Bridge.isServer and Bridge.isBridge then
   RegisterNetEvent("QBCore:Client:OnPlayerLoaded", function()
     LocalPlayer.state:set("anx_bridge:isLoggedIn", true, true)
     TriggerEvent("anx_bridge:onPlayerLoad")
@@ -35,8 +39,8 @@ if not isServer and isBridge then
       name = job.name,
       label = job.label,
       grade = job.grade.level,
-      gradeName = job.grade.name,
-      onDuty = job.onduty
+      gradeLabel = job.grade.name,
+      onDuty = job.onduty,
     })
   end)
 end
@@ -44,11 +48,16 @@ end
 framework.server.getPlayerData = function(src)
   local player = framework.object.Functions.GetPlayer(src)
 
-  if not player or not Player(src).state["anx_bridge:isLoggedIn"] then return nil end
+  if not player or not Player(src).state["anx_bridge:isLoggedIn"] then
+    return nil
+  end
 
   return {
     identifier = player.PlayerData.citizenid,
-    name = ("%s %s"):format(player.PlayerData.charinfo.firstname, player.PlayerData.charinfo.lastname),
+    name = ("%s %s"):format(
+      player.PlayerData.charinfo.firstname,
+      player.PlayerData.charinfo.lastname
+    ),
     job = {
       name = player.PlayerData.job.name,
       label = player.PlayerData.job.label,
@@ -69,7 +78,9 @@ end
 framework.server.getPlayerMoney = function(src, type)
   local player = framework.object.Functions.GetPlayer(src)
 
-  if not player then return 0 end
+  if not player then
+    return 0
+  end
 
   return player.Functions.GetMoney(type) or 0
 end
@@ -77,7 +88,9 @@ end
 framework.server.addPlayerMoney = function(src, type, amount)
   local player = framework.object.Functions.GetPlayer(src)
 
-  if not player then return false end
+  if not player then
+    return false
+  end
 
   player.Functions.AddMoney(type, amount)
 
@@ -87,7 +100,9 @@ end
 framework.server.removePlayerMoney = function(src, type, amount)
   local player = framework.object.Functions.GetPlayer(src)
 
-  if not player then return false end
+  if not player then
+    return false
+  end
 
   if framework.server.getPlayerMoney(src, type) < amount then
     return false

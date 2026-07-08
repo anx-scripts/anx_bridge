@@ -40,16 +40,16 @@ The chosen adapters are attached to the global `Bridge` table:
 Bridge = {
     framework = { ... },   -- FrameworkModule
     inventory = { ... },   -- InventoryModule
-    target    = { ... },   -- TargetModule (client only)
-    shared    = { ... },   -- helpers (dump, log)
+    target    = { ... },   -- TargetModule
+    shared    = { ... },   -- utils
 }
 ```
 
 `server` methods are stripped on the client and `client` methods are stripped on
 the server, so you always access the correct side directly.
 
-When run as a standalone resource, `anx_bridge` prints the resolved adapters and
-a compatibility rating for each module on startup.
+When run as a standalone resource, `anx_bridge` prints the resolved adapters for
+each module on startup.
 
 ## Convars
 
@@ -78,17 +78,47 @@ shared_scripts {
 }
 ```
 
+> **Important:** in your `server.cfg`, start `anx_bridge` **after** `ox_lib`
+> and the resources it bridges (framework, inventory, target). Any resource
+> that uses the bridge must start **after** `anx_bridge`.
+
 Then use the global `Bridge` object anywhere in your resource. Refer to
 `types.lua` for the full API surface of each module.
 
 ## Extending
 
 Each module is a directory containing one Lua file per supported resource plus a
-`fallback.lua`. To add support for a new resource:
+`fallback.lua`.
+
+### Add a resource to an existing module
+
+To support a new resource for a module that already exists (e.g. a new inventory):
 
 1. Create `<module>/<resource>.lua` returning a table that implements the
    module's interface (see `types.lua` for the full contracts).
-2. Register it in the `modules` list in `init.lua`.
+2. Add an entry to that module's `path` list in `init.lua`:
+   ```lua
+   { name = "<resource>", file = "<resource>" },
+   ```
+   `name` is the resource name checked against `GetResourceState`, `file` is the
+   Lua file to load (they can differ — e.g. `qbx_core` reuses the `qb-core` file).
+3. The resource's `name` is now a valid value for the module's convar
+   (`anx_bridge:<module>`), so it can be forced instead of auto-detected. Add it
+   to that module's list of valid values in the **Convars** section.
+
+### Add a new module
+
+To add a whole new module (e.g. `dispatch`, `phone`):
+
+1. Create a `<module>/` directory with one Lua file per supported resource plus a
+   `fallback.lua`, each returning a table with `client`/`server` tables.
+2. Describe its interface in `types.lua` — a `<Module>Module` class — and add a
+   matching field to `BridgeRoot`.
+3. Register the module in the `modules` list in `init.lua` with its `name` and
+   `path` entries.
+4. Add `'<module>/**.lua'` to the `files` block in `fxmanifest.lua`.
+5. The module automatically gets its own `anx_bridge:<module>` convar (defaults
+   to `auto`). Document it and its valid values in the **Convars** section.
 
 ## License
 
