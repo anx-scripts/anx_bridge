@@ -119,7 +119,3 @@ To add a whole new module (e.g. `dispatch`, `phone`):
 4. Add `'<module>/**.lua'` to the `files` block in `fxmanifest.lua`.
 5. The module automatically gets its own `anx_bridge:<module>` convar (defaults
    to `auto`). Document it and its valid values in the **Convars** section.
-
-## License
-
-Part of the anx-scripts project.
