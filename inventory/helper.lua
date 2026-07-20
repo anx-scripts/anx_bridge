@@ -9,21 +9,21 @@ local helper = {}
 ---@param shouldMatch boolean
 ---@return boolean
 function helper.metadataMatches(itemMetadata, metadata, shouldMatch)
-  if not itemMetadata or not next(itemMetadata) then
-    return false
-  end
-
-  if shouldMatch then
-    return lib.table.matches(itemMetadata, metadata)
-  end
-
-  for key, value in pairs(metadata) do
-    if itemMetadata[key] ~= value then
-      return false
+    if not itemMetadata or not next(itemMetadata) then
+        return false
     end
-  end
 
-  return true
+    if shouldMatch then
+        return lib.table.matches(itemMetadata, metadata)
+    end
+
+    for key, value in pairs(metadata) do
+        if itemMetadata[key] ~= value then
+            return false
+        end
+    end
+
+    return true
 end
 
 ---Sums the `count` of every instance whose metadata matches.
@@ -32,15 +32,15 @@ end
 ---@param shouldMatch boolean
 ---@return number
 function helper.countByMetadata(items, metadata, shouldMatch)
-  local count = 0
+    local count = 0
 
-  for _, v in ipairs(items) do
-    if helper.metadataMatches(v.metadata, metadata, shouldMatch) then
-      count = count + v.count
+    for _, v in ipairs(items) do
+        if helper.metadataMatches(v.metadata, metadata, shouldMatch) then
+            count = count + v.count
+        end
     end
-  end
 
-  return count
+    return count
 end
 
 ---Builds a plan to remove `count` units spread across slots matching the metadata.
@@ -52,26 +52,26 @@ end
 ---@param shouldMatch boolean
 ---@return { slot: number, count: number }[]|nil
 function helper.planRemoval(items, count, metadata, shouldMatch)
-  local plan = {}
-  local remaining = count
+    local plan = {}
+    local remaining = count
 
-  for _, v in ipairs(items) do
-    if remaining <= 0 then
-      break
+    for _, v in ipairs(items) do
+        if remaining <= 0 then
+            break
+        end
+
+        if helper.metadataMatches(v.metadata, metadata, shouldMatch) then
+            local take = math.min(remaining, v.count)
+            plan[#plan + 1] = { slot = v.slot, count = take }
+            remaining = remaining - take
+        end
     end
 
-    if helper.metadataMatches(v.metadata, metadata, shouldMatch) then
-      local take = math.min(remaining, v.count)
-      plan[#plan + 1] = { slot = v.slot, count = take }
-      remaining = remaining - take
+    if remaining > 0 then
+        return nil
     end
-  end
 
-  if remaining > 0 then
-    return nil
-  end
-
-  return plan
+    return plan
 end
 
 return helper

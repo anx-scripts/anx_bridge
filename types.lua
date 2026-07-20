@@ -1,3 +1,5 @@
+---@meta _
+
 ---@class FrameworkJob
 ---@field name string
 ---@field label string
@@ -114,3 +116,7 @@
 ---@field inventory InventoryModule
 ---@field target TargetModule
 ---@field shared SharedModule
+
+---@type BridgeRoot
+---@diagnostic disable-next-line: missing-fields
+Bridge = {}

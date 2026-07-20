@@ -9,13 +9,13 @@ helper.DEFAULT_DISTANCE = 2.0
 ---@param key "label"|"name"
 ---@return string[]
 function helper.pluck(options, key)
-  local result = {}
+    local result = {}
 
-  for _, v in ipairs(options) do
-    result[#result + 1] = v[key]
-  end
+    for _, v in ipairs(options) do
+        result[#result + 1] = v[key]
+    end
 
-  return result
+    return result
 end
 
 return helper
