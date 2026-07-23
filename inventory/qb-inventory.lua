@@ -70,6 +70,26 @@ inventory.server.canCarryItem = function(src, name, count)
     return qb_inventory:CanAddItem(src, name, count) or false
 end
 
+inventory.server.getInventory = function(src)
+    local newItems = {}
+    local object = Bridge.framework.object
+    local player = object and object.Functions.GetPlayer(src)
+    local items = player and player.PlayerData.items or {}
+
+    for slot, v in pairs(items) do
+        if v then
+            newItems[#newItems + 1] = {
+                name = v.name,
+                metadata = v.info,
+                count = v.amount,
+                slot = v.slot or slot,
+            }
+        end
+    end
+
+    return helper.sortBySlot(newItems)
+end
+
 inventory.server.getItems = function(src, name)
     local newItems = {}
     local items = qb_inventory:GetItemsByName(src, name) or {}

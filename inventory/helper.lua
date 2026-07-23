@@ -1,5 +1,17 @@
 local helper = {}
 
+---Sorts inventory items by their slot number.
+---@generic T: { slot: number }
+---@param items T[]
+---@return T[]
+function helper.sortBySlot(items)
+    table.sort(items, function(a, b)
+        return a.slot < b.slot
+    end)
+
+    return items
+end
+
 ---Whether an item instance's metadata matches the query.
 ---shouldMatch = true  -> exact match (metadata identical; lib.table.matches)
 ---shouldMatch = false -> subset: every provided key must be equal,

@@ -40,6 +40,11 @@ inventory.server.canCarryItem = function()
     return false
 end
 
+inventory.server.getInventory = function()
+    print("^1[FALLBACK] ^7Using fallback for ^1getInventory^7.")
+    return {}
+end
+
 inventory.server.getItems = function()
     print("^1[FALLBACK] ^7Using fallback for ^1getItems^7.")
     return {}

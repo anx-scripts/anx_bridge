@@ -4,7 +4,7 @@ game 'gta5'
 
 name 'anx_bridge'
 author 'anx-scripts'
-version '1.0.0'
+version '1.1.0'
 description 'Framework, inventory and target bridge for anx-scripts resources.'
 
 dependency 'ox_lib'

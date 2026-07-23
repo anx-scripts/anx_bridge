@@ -65,6 +65,24 @@ inventory.server.canCarryItem = function(src, name, count)
     return ox_inventory:CanCarryItem(src, name, count) or false
 end
 
+inventory.server.getInventory = function(src)
+    local newItems = {}
+    local items = ox_inventory:GetInventoryItems(src) or {}
+
+    for slot, v in pairs(items) do
+        if v then
+            newItems[#newItems + 1] = {
+                name = v.name,
+                metadata = v.metadata,
+                count = v.count,
+                slot = v.slot or slot,
+            }
+        end
+    end
+
+    return helper.sortBySlot(newItems)
+end
+
 inventory.server.getItems = function(src, name)
     local newItems = {}
     local items = ox_inventory:GetSlotsWithItem(src, name) or {}

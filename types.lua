@@ -52,6 +52,9 @@
 ---@field count number
 ---@field metadata? table<string, any>
 
+---@class InventorySlotItem: InventoryNamedItem
+---@field slot number
+
 ---@class InventoryClient
 ---@field item fun(name: string): InventoryClientItem
 ---@field items fun(): table<string, InventoryClientItem>
@@ -63,6 +66,7 @@
 ---@field item fun(name: string): InventoryServerItem
 ---@field createStash fun(identifier: string, label: string, slots: number, weight: number)
 ---@field canCarryItem fun(src: number, name: string, count: number): boolean
+---@field getInventory fun(src: number): InventorySlotItem[]
 ---@field getItems fun(src: number, name: string): InventoryInstanceItem[]
 ---@field getItemCount fun(src: number, name: string, metadata?: table<string, any>, shouldMatch?: boolean): number
 ---@field getItemBySlot fun(src: number, slot: number): InventoryNamedItem|nil
